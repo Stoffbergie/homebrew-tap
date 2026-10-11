@@ -48,49 +48,51 @@ jobs:
 
       - name: Update formula
         run: |
-          cat > Formula/shrd.rb << EOF
-          class Shrd < Formula
-            desc "Share anything instantly - CLI-first content sharing"
-            homepage "https://github.com/Stoffberg/shrd.sh"
+          cat > Formula/keep.rb << EOF
+          class Keep < Formula
+            desc "Files from your terminal, kept forever"
+            homepage "https://github.com/Stoffbergie/keep"
             version "${{ steps.vars.outputs.version }}"
             license "MIT"
 
             on_macos do
               on_intel do
-                url "https://github.com/Stoffberg/shrd.sh/releases/download/cli-v#{version}/shrd-x86_64-apple-darwin.tar.gz"
+                url "https://github.com/Stoffbergie/keep/releases/download/v#{version}/keep-x86_64-apple-darwin.tar.gz"
                 sha256 "${{ steps.vars.outputs.darwin_x64 }}"
               end
               on_arm do
-                url "https://github.com/Stoffberg/shrd.sh/releases/download/cli-v#{version}/shrd-aarch64-apple-darwin.tar.gz"
+                url "https://github.com/Stoffbergie/keep/releases/download/v#{version}/keep-aarch64-apple-darwin.tar.gz"
                 sha256 "${{ steps.vars.outputs.darwin_arm64 }}"
               end
             end
 
             on_linux do
               on_intel do
-                url "https://github.com/Stoffberg/shrd.sh/releases/download/cli-v#{version}/shrd-x86_64-unknown-linux-gnu.tar.gz"
+                url "https://github.com/Stoffbergie/keep/releases/download/v#{version}/keep-x86_64-unknown-linux-gnu.tar.gz"
                 sha256 "${{ steps.vars.outputs.linux_x64 }}"
               end
               on_arm do
-                url "https://github.com/Stoffberg/shrd.sh/releases/download/cli-v#{version}/shrd-aarch64-unknown-linux-gnu.tar.gz"
+                url "https://github.com/Stoffbergie/keep/releases/download/v#{version}/keep-aarch64-unknown-linux-gnu.tar.gz"
                 sha256 "${{ steps.vars.outputs.linux_arm64 }}"
               end
             end
 
             def install
-              bin.install "shrd"
+              bin.install "keep"
             end
 
             test do
-              assert_match "shrd", shell_output("#{bin}/shrd --version")
+              assert_match "keep", shell_output("#{bin}/keep --version")
             end
           end
           EOF
+          git rm -q --ignore-unmatch Formula/shrd.rb
+          printf '{\n  "shrd": "keep"\n}\n' > formula_renames.json
 
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add Formula/shrd.rb
-          git commit -m "Update shrd to v${{ steps.vars.outputs.version }}" || echo "No changes to commit"
+          git add Formula/keep.rb formula_renames.json
+          git commit -m "Update keep to v${{ steps.vars.outputs.version }}" || echo "No changes to commit"
           git push

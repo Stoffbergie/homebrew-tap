@@ -6,13 +6,13 @@ Homebrew formulae and casks from [Stoffberg](https://github.com/Stoffberg).
 
 | Name | Type | Description |
 |------|------|-------------|
-| [shrd](https://github.com/Stoffberg/shrd.sh) | Formula | CLI content sharing |
+| [keep](https://github.com/Stoffbergie/keep) | Formula | Files from your terminal, kept forever |
 | [record](https://github.com/Stoffberg/record) | Cask | Privacy-first activity tracker for macOS |
 
 ## Installation
 
 ```bash
-brew install stoffberg/tap/shrd
+brew install stoffbergie/tap/keep
 brew install stoffberg/tap/record
 ```
 
@@ -20,6 +20,6 @@ brew install stoffberg/tap/record
 
 ```bash
 brew update
-brew upgrade shrd
+brew upgrade keep
 brew upgrade record
 ```
