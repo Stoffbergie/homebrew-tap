@@ -24,10 +24,10 @@ on:
 jobs:
   update:
     runs-on: blacksmith-4vcpu-ubuntu-2404
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v6
-        with:
-          token: ${{ secrets.PUSH_TOKEN }}
 
       - name: Set variables from dispatch
         id: vars
