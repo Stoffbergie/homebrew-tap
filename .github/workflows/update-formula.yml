@@ -86,13 +86,11 @@ jobs:
             end
           end
           EOF
-          git rm -q --ignore-unmatch Formula/shrd.rb
-          printf '{\n  "shrd": "keep"\n}\n' > formula_renames.json
 
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add Formula/keep.rb formula_renames.json
+          git add Formula/keep.rb
           git commit -m "Update keep to v${{ steps.vars.outputs.version }}" || echo "No changes to commit"
           git push
