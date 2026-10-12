@@ -1,28 +1,28 @@
 class Keep < Formula
   desc "Files from your terminal, kept forever"
   homepage "https://github.com/Stoffbergie/keep"
-  version "0.3.1"
+  version "0.3.2"
   license "MIT"
 
   on_macos do
     on_intel do
       url "https://github.com/Stoffbergie/keep/releases/download/v#{version}/keep-x86_64-apple-darwin.tar.gz"
-      sha256 "afa704ef7a4c0c1a779bbb37f4b3d8b5781433c24ea1af700c97cdc59e5305b7"
+      sha256 "37194f86a05bb6f5ec4109746c5c349f5c2d9e6e5c671d0e3074875f51c8c392"
     end
     on_arm do
       url "https://github.com/Stoffbergie/keep/releases/download/v#{version}/keep-aarch64-apple-darwin.tar.gz"
-      sha256 "a171cc57bc3b19196d209022fd877a9c2b694be44fc5a4bf93276aa56c7aaf74"
+      sha256 "a66436a95eca3241c908da5aeabde551dafa5650662d99d9ebe595ea366af48b"
     end
   end
 
   on_linux do
     on_intel do
       url "https://github.com/Stoffbergie/keep/releases/download/v#{version}/keep-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "2948e706d39f4564e1198edb351344cbdf1d60577d584a9ec0597c548fcfb9bc"
+      sha256 "4359f6cc0757859f8abbd1c8591a33cfa15486cc936793209883e2445ce1a1c5"
     end
     on_arm do
       url "https://github.com/Stoffbergie/keep/releases/download/v#{version}/keep-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "4bc66ba59494810c1b1ff0f75aa606b2109486ae449d7c4b9f78aef6a7c4ce9a"
+      sha256 "f079b2a579f69a73c0c19a246af325df2b6f3e7a311edf1e92b02d792067c095"
     end
   end
 
