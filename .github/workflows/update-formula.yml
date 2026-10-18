@@ -5,6 +5,10 @@ on:
     types: [update-formula]
   workflow_dispatch:
     inputs:
+      formula:
+        description: "Formula to update (keep or beam)"
+        required: true
+        default: keep
       version:
         description: "Version (e.g., 0.1.0)"
         required: true
@@ -33,12 +37,14 @@ jobs:
         id: vars
         run: |
           if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            echo "formula=${{ github.event.client_payload.formula || 'keep' }}" >> $GITHUB_OUTPUT
             echo "version=${{ github.event.client_payload.version }}" >> $GITHUB_OUTPUT
             echo "darwin_x64=${{ github.event.client_payload.darwin_x64_sha }}" >> $GITHUB_OUTPUT
             echo "darwin_arm64=${{ github.event.client_payload.darwin_arm64_sha }}" >> $GITHUB_OUTPUT
             echo "linux_x64=${{ github.event.client_payload.linux_x64_sha }}" >> $GITHUB_OUTPUT
             echo "linux_arm64=${{ github.event.client_payload.linux_arm64_sha }}" >> $GITHUB_OUTPUT
           else
+            echo "formula=${{ github.event.inputs.formula }}" >> $GITHUB_OUTPUT
             echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
             echo "darwin_x64=${{ github.event.inputs.darwin_x64_sha }}" >> $GITHUB_OUTPUT
             echo "darwin_arm64=${{ github.event.inputs.darwin_arm64_sha }}" >> $GITHUB_OUTPUT
@@ -47,50 +53,60 @@ jobs:
           fi
 
       - name: Update formula
+        env:
+          FORMULA: ${{ steps.vars.outputs.formula }}
         run: |
-          cat > Formula/keep.rb << EOF
-          class Keep < Formula
-            desc "Files from your terminal, kept forever"
-            homepage "https://github.com/Stoffbergie/keep"
+          case "$FORMULA" in
+            keep) DESC="Files from your terminal, kept forever" ;;
+            beam) DESC="Your localhost, on the internet" ;;
+            *) echo "Unknown formula: $FORMULA"; exit 1 ;;
+          esac
+          CLASS="$(printf '%s' "${FORMULA:0:1}" | tr '[:lower:]' '[:upper:]')${FORMULA:1}"
+          cat > "Formula/$FORMULA.rb" << EOF
+          class $CLASS < Formula
+            desc "$DESC"
+            homepage "https://github.com/Stoffbergie/$FORMULA"
             version "${{ steps.vars.outputs.version }}"
             license "MIT"
 
             on_macos do
               on_intel do
-                url "https://github.com/Stoffbergie/keep/releases/download/v#{version}/keep-x86_64-apple-darwin.tar.gz"
+                url "https://github.com/Stoffbergie/$FORMULA/releases/download/v#{version}/$FORMULA-x86_64-apple-darwin.tar.gz"
                 sha256 "${{ steps.vars.outputs.darwin_x64 }}"
               end
               on_arm do
-                url "https://github.com/Stoffbergie/keep/releases/download/v#{version}/keep-aarch64-apple-darwin.tar.gz"
+                url "https://github.com/Stoffbergie/$FORMULA/releases/download/v#{version}/$FORMULA-aarch64-apple-darwin.tar.gz"
                 sha256 "${{ steps.vars.outputs.darwin_arm64 }}"
               end
             end
 
             on_linux do
               on_intel do
-                url "https://github.com/Stoffbergie/keep/releases/download/v#{version}/keep-x86_64-unknown-linux-gnu.tar.gz"
+                url "https://github.com/Stoffbergie/$FORMULA/releases/download/v#{version}/$FORMULA-x86_64-unknown-linux-gnu.tar.gz"
                 sha256 "${{ steps.vars.outputs.linux_x64 }}"
               end
               on_arm do
-                url "https://github.com/Stoffbergie/keep/releases/download/v#{version}/keep-aarch64-unknown-linux-gnu.tar.gz"
+                url "https://github.com/Stoffbergie/$FORMULA/releases/download/v#{version}/$FORMULA-aarch64-unknown-linux-gnu.tar.gz"
                 sha256 "${{ steps.vars.outputs.linux_arm64 }}"
               end
             end
 
             def install
-              bin.install "keep"
+              bin.install "$FORMULA"
             end
 
             test do
-              assert_match "keep", shell_output("#{bin}/keep --version")
+              assert_match "$FORMULA", shell_output("#{bin}/$FORMULA --version")
             end
           end
           EOF
 
       - name: Commit and push
+        env:
+          FORMULA: ${{ steps.vars.outputs.formula }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add Formula/keep.rb
-          git commit -m "Update keep to v${{ steps.vars.outputs.version }}" || echo "No changes to commit"
+          git add "Formula/$FORMULA.rb"
+          git commit -m "Update $FORMULA to v${{ steps.vars.outputs.version }}" || echo "No changes to commit"
           git push
