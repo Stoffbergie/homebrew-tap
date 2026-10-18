@@ -1,0 +1,44 @@
+name: Sync Formulae
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: formulae
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Publish new releases
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Update formulae from the latest releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          for formula in keep beam; do
+            tag=$(gh api "repos/Stoffbergie/$formula/releases/latest" --jq .tag_name)
+            version=${tag#v}
+            current=$(sed -n 's/^  version "\(.*\)"/\1/p' "Formula/$formula.rb")
+            if [ "$version" = "$current" ]; then
+              echo "$formula is up to date at $version"
+              continue
+            fi
+            curl -fsSL "https://github.com/Stoffbergie/$formula/releases/download/$tag/SHA256SUMS" -o sums
+            sha() { grep "$formula-$1.tar.gz\$" sums | cut -d' ' -f1; }
+            ./scripts/render-formula.sh "$formula" "$version" "$(sha x86_64-apple-darwin)" "$(sha aarch64-apple-darwin)" "$(sha x86_64-unknown-linux-gnu)" "$(sha aarch64-unknown-linux-gnu)"
+            rm sums
+            git add "Formula/$formula.rb"
+            git commit -m "Update $formula to $tag"
+          done
+          git push

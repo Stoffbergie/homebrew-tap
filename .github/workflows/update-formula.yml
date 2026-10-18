@@ -53,53 +53,14 @@ jobs:
           fi
 
       - name: Update formula
-        env:
-          FORMULA: ${{ steps.vars.outputs.formula }}
-        run: |
-          case "$FORMULA" in
-            keep) DESC="Files from your terminal, kept forever" ;;
-            beam) DESC="Your localhost, on the internet" ;;
-            *) echo "Unknown formula: $FORMULA"; exit 1 ;;
-          esac
-          CLASS="$(printf '%s' "${FORMULA:0:1}" | tr '[:lower:]' '[:upper:]')${FORMULA:1}"
-          cat > "Formula/$FORMULA.rb" << EOF
-          class $CLASS < Formula
-            desc "$DESC"
-            homepage "https://github.com/Stoffbergie/$FORMULA"
-            version "${{ steps.vars.outputs.version }}"
-            license "MIT"
-
-            on_macos do
-              on_intel do
-                url "https://github.com/Stoffbergie/$FORMULA/releases/download/v#{version}/$FORMULA-x86_64-apple-darwin.tar.gz"
-                sha256 "${{ steps.vars.outputs.darwin_x64 }}"
-              end
-              on_arm do
-                url "https://github.com/Stoffbergie/$FORMULA/releases/download/v#{version}/$FORMULA-aarch64-apple-darwin.tar.gz"
-                sha256 "${{ steps.vars.outputs.darwin_arm64 }}"
-              end
-            end
-
-            on_linux do
-              on_intel do
-                url "https://github.com/Stoffbergie/$FORMULA/releases/download/v#{version}/$FORMULA-x86_64-unknown-linux-gnu.tar.gz"
-                sha256 "${{ steps.vars.outputs.linux_x64 }}"
-              end
-              on_arm do
-                url "https://github.com/Stoffbergie/$FORMULA/releases/download/v#{version}/$FORMULA-aarch64-unknown-linux-gnu.tar.gz"
-                sha256 "${{ steps.vars.outputs.linux_arm64 }}"
-              end
-            end
-
-            def install
-              bin.install "$FORMULA"
-            end
-
-            test do
-              assert_match "$FORMULA", shell_output("#{bin}/$FORMULA --version")
-            end
-          end
-          EOF
+        run: >-
+          ./scripts/render-formula.sh
+          "${{ steps.vars.outputs.formula }}"
+          "${{ steps.vars.outputs.version }}"
+          "${{ steps.vars.outputs.darwin_x64 }}"
+          "${{ steps.vars.outputs.darwin_arm64 }}"
+          "${{ steps.vars.outputs.linux_x64 }}"
+          "${{ steps.vars.outputs.linux_arm64 }}"
 
       - name: Commit and push
         env:
