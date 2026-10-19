@@ -11,7 +11,7 @@ cask "record" do
   end
 
   name "Record"
-  desc "Privacy-first activity tracker for macOS"
+  desc "Track your apps and projects locally on macOS."
   homepage "https://github.com/Stoffbergie/record"
 
   app "Record.app"

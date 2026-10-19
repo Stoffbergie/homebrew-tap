@@ -8,9 +8,9 @@ linux_x64=$5
 linux_arm64=$6
 
 case "$formula" in
-  keep) desc="Files from your terminal, kept forever" ;;
-  beam) desc="Your localhost, on the internet" ;;
-  hook) desc="Webhooks, caught and replayed" ;;
+  keep) desc="Share files from your terminal with a link." ;;
+  beam) desc="Share local servers through public HTTPS URLs." ;;
+  hook) desc="Capture, inspect and replay webhooks to localhost." ;;
   *) echo "Unknown formula: $formula" >&2; exit 1 ;;
 esac
 class="$(printf '%s' "$formula" | cut -c1 | tr '[:lower:]' '[:upper:]')$(printf '%s' "$formula" | cut -c2-)"

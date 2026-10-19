@@ -1,5 +1,5 @@
 class Keep < Formula
-  desc "Files from your terminal, kept forever"
+  desc "Share files from your terminal with a link."
   homepage "https://github.com/Stoffbergie/keep"
   version "0.7.0"
   license "MIT"
