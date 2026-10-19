@@ -1,28 +1,28 @@
 class Beam < Formula
   desc "Share local servers through public HTTPS URLs."
   homepage "https://github.com/Stoffbergie/beam"
-  version "0.3.0"
+  version "0.4.0"
   license "MIT"
 
   on_macos do
     on_intel do
       url "https://github.com/Stoffbergie/beam/releases/download/v#{version}/beam-x86_64-apple-darwin.tar.gz"
-      sha256 "b13f989505e0537a4f3fb4634f58d350b3f409da3fdefe74539a6fc88e9147c0"
+      sha256 "3815122426f17489f5403e8cf4fcfe64152a6305d74cea071e5735dccdaae97a"
     end
     on_arm do
       url "https://github.com/Stoffbergie/beam/releases/download/v#{version}/beam-aarch64-apple-darwin.tar.gz"
-      sha256 "75fd177d538cf0e15e10ca31b5ef3bfa49a88e3ab6e8d8a1220b20dd0caa2015"
+      sha256 "d16750fa5d3b008ec902e021b995f6c8fe2f81ba6b6511e9ece3d441be9c6815"
     end
   end
 
   on_linux do
     on_intel do
       url "https://github.com/Stoffbergie/beam/releases/download/v#{version}/beam-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "9b4bf6c635bab0de1c88861da1db7461bb401f520ba327c8c389e330ec4a88e5"
+      sha256 "dd40b20e8bac81b5bfbb95e75d46aa076a1406cb5d40222ae3dd81b4133b7406"
     end
     on_arm do
       url "https://github.com/Stoffbergie/beam/releases/download/v#{version}/beam-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "72e14f0c1a8c4b10dcf0d5b15e6539ad7aa62fd06df598fd9211504bc2a10aa7"
+      sha256 "96ca139bc25f3ec67d46126de86331cbe9bc19e9a1ae198e83ae7ceda49fb1a8"
     end
   end
 
