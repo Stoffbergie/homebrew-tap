@@ -6,10 +6,10 @@ Homebrew formulae and casks from [Stoffberg](https://github.com/Stoffberg).
 
 | Name | Type | Description |
 |------|------|-------------|
-| [keep](https://github.com/Stoffbergie/keep) | Formula | Files from your terminal, kept forever |
-| [beam](https://github.com/Stoffbergie/beam) | Formula | Your localhost, on the internet |
-| [hook](https://github.com/Stoffbergie/hook) | Formula | Webhooks, caught and replayed |
-| [record](https://github.com/Stoffbergie/record) | Cask | Privacy-first activity tracker for macOS |
+| [keep](https://github.com/Stoffbergie/keep) | Formula | Share files from your terminal with a link. |
+| [beam](https://github.com/Stoffbergie/beam) | Formula | Share local servers through public HTTPS URLs. |
+| [hook](https://github.com/Stoffbergie/hook) | Formula | Capture, inspect and replay webhooks to localhost. |
+| [record](https://github.com/Stoffbergie/record) | Cask | Track your apps and projects locally on macOS. |
 
 ## Installation
 

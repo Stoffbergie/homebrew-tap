@@ -1,5 +1,5 @@
 class Beam < Formula
-  desc "Your localhost, on the internet"
+  desc "Share local servers through public HTTPS URLs."
   homepage "https://github.com/Stoffbergie/beam"
   version "0.2.0"
   license "MIT"

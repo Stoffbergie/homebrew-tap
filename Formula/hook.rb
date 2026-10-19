@@ -1,5 +1,5 @@
 class Hook < Formula
-  desc "Webhooks, caught and replayed"
+  desc "Capture, inspect and replay webhooks to localhost."
   homepage "https://github.com/Stoffbergie/hook"
   version "0.1.0"
   license "MIT"
