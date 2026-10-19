@@ -1,28 +1,28 @@
 class Keep < Formula
   desc "Share files from your terminal with a link."
   homepage "https://github.com/Stoffbergie/keep"
-  version "0.7.1"
+  version "0.8.0"
   license "MIT"
 
   on_macos do
     on_intel do
       url "https://github.com/Stoffbergie/keep/releases/download/v#{version}/keep-x86_64-apple-darwin.tar.gz"
-      sha256 "f2d19d053fe351778cc31c22137fa83515ed7deef97f3d0f1c22473ca60a3bd2"
+      sha256 "6eb4af0a6ba1011acd61bee1999ee1c7f1cb4a6d95fad5b1a3f183a6272e1288"
     end
     on_arm do
       url "https://github.com/Stoffbergie/keep/releases/download/v#{version}/keep-aarch64-apple-darwin.tar.gz"
-      sha256 "b16758a773e1f0a1e08df2b2531ee706f5143cf7bcd8665ccc20fdf9d76f4d79"
+      sha256 "488b1f370fb2e4a048b703a6bb572ae8d444f6e89eb129b67064f42e49e97be8"
     end
   end
 
   on_linux do
     on_intel do
       url "https://github.com/Stoffbergie/keep/releases/download/v#{version}/keep-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "51258735dd443e94fc3569507f98dddd4ce159f89d1740c7ad0a8bb3df037ec7"
+      sha256 "0931b666482e046c1e299ab194666e36b5616168e65baee8d09d2e4e0a456519"
     end
     on_arm do
       url "https://github.com/Stoffbergie/keep/releases/download/v#{version}/keep-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "045f0b097f66f5d6e65f02c2d88263629052da9807b848fd7c49412895838c7a"
+      sha256 "615beb0bd17fb3ea15f249c2ea20f9ecac75a7a7d6388b9b417115f7def20254"
     end
   end
 
