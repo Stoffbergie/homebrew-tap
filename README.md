@@ -9,6 +9,7 @@ Homebrew formulae and casks from [Stoffberg](https://github.com/Stoffberg).
 | [keep](https://github.com/Stoffbergie/keep) | Formula | Share files from your terminal with a link. |
 | [beam](https://github.com/Stoffbergie/beam) | Formula | Share local servers through public HTTPS URLs. |
 | [hook](https://github.com/Stoffbergie/hook) | Formula | Capture, inspect and replay webhooks to localhost. |
+| [site](https://github.com/Stoffbergie/site) | Formula | Deploy static files to a live URL in one command. |
 | [record](https://github.com/Stoffbergie/record) | Cask | Track your apps and projects locally on macOS. |
 
 ## Installation
@@ -17,6 +18,7 @@ Homebrew formulae and casks from [Stoffberg](https://github.com/Stoffberg).
 brew install stoffbergie/tap/keep
 brew install stoffbergie/tap/beam
 brew install stoffbergie/tap/hook
+brew install stoffbergie/tap/site
 brew install stoffbergie/tap/record
 ```
 
@@ -27,5 +29,6 @@ brew update
 brew upgrade keep
 brew upgrade beam
 brew upgrade hook
+brew upgrade site
 brew upgrade record
 ```
