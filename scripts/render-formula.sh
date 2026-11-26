@@ -11,6 +11,7 @@ case "$formula" in
   keep) desc="Share files from your terminal with a link." ;;
   beam) desc="Share local servers through public HTTPS URLs." ;;
   hook) desc="Capture, inspect and replay webhooks to localhost." ;;
+  site) desc="Deploy static files to a live URL in one command." ;;
   *) echo "Unknown formula: $formula" >&2; exit 1 ;;
 esac
 class="$(printf '%s' "$formula" | cut -c1 | tr '[:lower:]' '[:upper:]')$(printf '%s' "$formula" | cut -c2-)"
