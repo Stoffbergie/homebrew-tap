@@ -1,28 +1,28 @@
 class Site < Formula
   desc "Deploy static files to a live URL in one command."
   homepage "https://github.com/Stoffbergie/site"
-  version "0.4.1"
+  version "0.5.0"
   license "MIT"
 
   on_macos do
     on_intel do
       url "https://github.com/Stoffbergie/site/releases/download/v#{version}/site-x86_64-apple-darwin.tar.gz"
-      sha256 "7d8b43d805a8f4a3e62e690f240ca51209dabefbaae6dd802dc9d2e5639ba3d3"
+      sha256 "e9e044332a68dd933033d89007137f52e5625288cbd2fd974566765b6d639355"
     end
     on_arm do
       url "https://github.com/Stoffbergie/site/releases/download/v#{version}/site-aarch64-apple-darwin.tar.gz"
-      sha256 "b2ca94ee444ab1d848ddb7468b89c981c0e91155afe8856f0b38a3b32ce83178"
+      sha256 "806ccd5d90f1c1a11d74128ae4c28f852f8fd9f27cef9710d24feeea49b3d80f"
     end
   end
 
   on_linux do
     on_intel do
       url "https://github.com/Stoffbergie/site/releases/download/v#{version}/site-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "e22f2c461c505ef8eeaf8ad0fa492a2b6088567261c605f7d39db3245707269e"
+      sha256 "d4e13aa5b0e72e3c4820b957dfb888b0a4983c2430872990ce499409f64f90f7"
     end
     on_arm do
       url "https://github.com/Stoffbergie/site/releases/download/v#{version}/site-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "edf3bb98bb0418dbdbc4427a321eca3e2c0a3e1b1478af5e9ae943daa016825f"
+      sha256 "1a6811370315636a7550b143ed70efaef956324ca65bb072cef5437bc85bde27"
     end
   end
 
